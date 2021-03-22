@@ -1,0 +1,10 @@
+fastapi
+pydantic[dotenv]
+uvicorn
+aiofiles
+pyjwt
+passlib[bcrypt]
+python-multipart
+strconv
+requests
+SPARQLWrapper

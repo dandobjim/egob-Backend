@@ -1,0 +1,17 @@
+README.md
+setup.py
+egob/__init__.py
+egob/__main__.py
+egob/app.py
+egob/config.py
+egob/logger.py
+egob.egg-info/PKG-INFO
+egob.egg-info/SOURCES.txt
+egob.egg-info/dependency_links.txt
+egob.egg-info/entry_points.txt
+egob.egg-info/requires.txt
+egob.egg-info/top_level.txt
+egob/model/__init__.py
+egob/model/virtuoso.py
+egob/routes/__init__.py
+egob/routes/virtuoso.py

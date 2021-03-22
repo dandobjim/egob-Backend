@@ -1,0 +1,3 @@
+[console_scripts]
+egob = egob.__main__:cli
+
