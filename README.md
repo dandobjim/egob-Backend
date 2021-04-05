@@ -16,7 +16,7 @@ Before running `egob`, save a copy of [`.env.template`](.env) as `.env` and inse
 Via source code:
 
 ```console
-$ git clone git@github.com:dandobjim/FIMED2.0.git
+$ git clone https://github.com/dandobjim/egob-Backend.git
 $ python setup.py install
 ```
 
