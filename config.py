@@ -7,7 +7,7 @@ class _Settings(BaseSettings):
     API_HOST: str = "0.0.0.0"
     API_PORT: int = 8080
     # for applications sub-mounted below a given URL path
-    ROOT_PATH: str = ""
+    ROOT_PATH: str = "/api/v1"
     class Config:
         if not Path(".env").is_file():
             logger.warning("⚠️ `.env` not found in current directory")
