@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import Response
@@ -17,6 +17,8 @@ app = FastAPI(
     openapi_prefix=settings.ROOT_PATH,
     description="",
     version=__version__,
+    root_path=settings.ROOT_PATH,
+
 )
 
 # cors
@@ -36,7 +38,12 @@ async def health():
     return Response(status_code=status.HTTP_200_OK)
 
 
-app.include_router(virtuoso_router, prefix="/api/v2/virtuoso")
+@app.get("/api/v1/openapi.json", name="Get open API endpoint", tags=["documentation"])
+async def read_main(request: Request):
+    return {"message": "Hello World", "root_path": request.scope.get("root_path")}
+
+
+app.include_router(virtuoso_router, prefix="/api/v1/virtuoso")
 
 
 def run_server():
