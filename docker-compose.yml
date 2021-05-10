@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   egob_backend:
-    container_name: egobB
+    container_name: egob_backend
     build:
       context: .
     ports:
