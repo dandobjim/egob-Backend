@@ -13,7 +13,7 @@ from egob.routes.virtuoso import router as virtuoso_router
 
 app = FastAPI(
     title="Egob",
-    docs_url="/api/docs",
+    docs_url="/egob/api/docs",
     openapi_prefix=settings.ROOT_PATH,
     description="",
     version=__version__,
@@ -43,7 +43,7 @@ async def read_main(request: Request):
     return {"message": "Hello World", "root_path": request.scope.get("root_path")}
 
 
-app.include_router(virtuoso_router, prefix="/api/v1/virtuoso")
+app.include_router(virtuoso_router, prefix="/egob/api/v1/virtuoso")
 
 
 def run_server():
