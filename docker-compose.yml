@@ -6,4 +6,4 @@ services:
     build:
       context: .
     ports:
-      - 8050:8080
+      - 8022:8080
