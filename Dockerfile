@@ -12,6 +12,6 @@ RUN poetry config virtualenvs.create false \
 
 
 
-COPY . /egobB
+COPY . ./
 
 CMD ["poetry", "run", "egob", "server"]
