@@ -4,8 +4,8 @@ from egob.logger import logger
 
 class _Settings(BaseSettings):
     # api settings
-    API_HOST: str = "localhost/egob"
-    API_PORT: int = 8022
+    API_HOST: str = "localhost"
+    API_PORT: int = 8080
     # for applications sub-mounted below a given URL path
     ROOT_PATH: str = ""
     class Config:
