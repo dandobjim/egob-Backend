@@ -5,9 +5,9 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 class Virtuoso:
     @staticmethod
-    def create_id():
+    def create_id(id: str):
         sparql = SPARQLWrapper("http://192.168.213.38:8086/sparql")
-        sparql.setQuery("""
+        sparql.setQuery(f"""
                 PREFIX ter:   <http://www.datos.misiones.gob.ar/ontologias/gobierno/ar.gp.N.territorio.owl#>
                 PREFIX tys:   <http://www.datos.misiones.gob.ar/ontologias/gobierno/ejecutivo/ar.gp.N.pe.tys.owl#>
                 PREFIX infra: <http://www.datos.misiones.gob.ar/ontologias/gobierno/ejecutivo/ar.gp.N.pe.infraestructura.owl#>
@@ -16,28 +16,29 @@ class Virtuoso:
                 PREFIX gn:    <http://www.geonames.org/#>
                 PREFIX map:   <http://www.datos.misiones.gob.ar/ontologias/mapillary.owl#>
                 PREFIX ec: <http://www.datos.misiones.gob.ar/ontologias/gobierno/ejecutivo/ar.gp.N.pe.ec.owl#>
-                
-                SELECT distinct ?domicilio ?edificio ?responsable ?telefono ?latitud ?longitud
-                WHERE {
-                GRAPH <egob> { 
-                ?Tramite tys:ID "New_ID_Card"^^<http://www.w3.org/2001/XMLSchema#string> .
-                ?Tramite tys:IsMadeIn ?TipoLugar .
-                ?Lugar rdf:type ?TipoLugar .
-                ?Lugar infra:Place ter:Posadas .
-                ?Lugar infra:Address ?domicilio .
-                ?Lugar infra:phone ?telefono .
-                ?Lugar infra:BuildingName ?edificio .
-                ?lugar infra:ResponsiblePerson ?foafResponsable .
-                ?foafResponsable ec:Name ?responsable .
-                ?osm osm:street ?domicilio .
-                ?osm osm:lat ?latitud .
-                ?osm osm:long ?longitud
-                }
-                }
+
+                SELECT distinct ?domicilio ?edificio ?responsable ?telefono ?coordinates
+                WHERE {{
+                GRAPH <egob> {{ 
+                    ?Tramite tys:ID "{id}"^^<http://www.w3.org/2001/XMLSchema#string> .
+                    ?Tramite tys:IsMadeIn ?TipoLugar .
+                    ?Lugar rdf:type ?TipoLugar .
+                    OPTIONAL{{?Lugar infra:Address ?domicilio .}}
+                    OPTIONAL{{?Lugar infra:phone ?telefono .}}
+                    OPTIONAL{{?Lugar infra:BuildingName ?edificio .}}
+                    OPTIONAL{{?lugar infra:ResponsiblePerson ?foafResponsable .}}
+                    OPTIONAL{{?Lugar infra:Coordinates ?coordinates}}
+                    OPTIONAL{{?foafResponsable ec:Name ?responsable .}}                   
+                }}
+        }}
                     """)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
+        logger.info("RESULTS")
+        logger.info(results)
         data = []
         for result in results["results"]["bindings"]:
             data.append(result)
+        logger.info("DATA")
+        logger.info(data)
         return data
